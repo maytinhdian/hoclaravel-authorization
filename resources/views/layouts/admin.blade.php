@@ -65,7 +65,7 @@
                 </a>
                 <div id="collapse_posts" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Components:</h6>
+                        <h6 class="collapse-header">Bài viết</h6>
                         <a class="collapse-item" href="{{route('admin.posts.index')}}">Danh sách</a>
                         <a class="collapse-item" href="{{route('admin.posts.add')}}">Thêm mới</a>
                     </div>
@@ -81,7 +81,7 @@
                 </a>
                 <div id="collapse_groups" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Components:</h6>
+                        <h6 class="collapse-header">Nhóm người dùng</h6>
                         <a class="collapse-item" href="{{route('admin.groups.index')}}">Danh sách</a>
                         <a class="collapse-item" href="{{route('admin.groups.add')}}">Thêm mới</a>
                     </div>
@@ -97,7 +97,7 @@
                 </a>
                 <div id="collapse_users" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Components:</h6>
+                        <h6 class="collapse-header">Người dùng</h6>
                         <a class="collapse-item" href="{{route('admin.users.index')}}">Danh sách</a>
                         <a class="collapse-item" href="{{route('admin.users.add')}}">Thêm mới</a>
                     </div>
