@@ -9,7 +9,7 @@ class DashBoardController extends Controller
 {
     public function index()
     {
-        return '<h1>Dashboard Controller</h1>';
+        return view('admin.dashboard');
     }
     
 }
