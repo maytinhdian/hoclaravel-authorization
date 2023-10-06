@@ -7,8 +7,10 @@
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Danh sách người dùng</h1>
-
     </div>
+    @if (session('msg'))
+        <div class="alert alert-success">{{session('msg')}}</div>
+    @endif
     <p>
         <a href="{{route('admin.users.add')}}" class="btn btn-primary">Thêm mới</a>
     </p>
