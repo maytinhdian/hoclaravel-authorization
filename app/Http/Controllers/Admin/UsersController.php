@@ -14,56 +14,86 @@ class UsersController extends Controller
     public function index()
     {
         $lists = User::all();
-        return view('admin.users.lists',compact('lists'));
+        return view('admin.users.lists', compact('lists'));
     }
     public function add()
     {
         $groups = Groups::all();
-        return view('admin.users.add',compact('groups'));
+        return view('admin.users.add', compact('groups'));
     }
     public function postAdd(Request $request)
     {
-       $request->validate(
-        [
-            'name'=>'required',
-            'email'=>'required|email|unique:users,email',
-            'password'=>'required',
-            'group_id'=>['required',function($attribute,$value,$fail){
-                if($value==0 ){
-                    $fail('Vui lòng chọn nhóm');
-                }
-            }]
-        ],
-        [
-            
-            'name.required'=>'Tên không được để trống',
-            'email.required'=>'Tên không được để trống',
-            'email.email'=> 'Email không đúng định dạng',
-            'email.unique'=>'Email đã có người sử dụng',
-            'group_id.required'=>'Nhóm không được để trống',
-            'passowrd.required'=>'Nhập password'
-        ]
-       );
+        $request->validate(
+            [
+                'name' => 'required',
+                'email' => 'required|email|unique:users,email',
+                'password' => 'required',
+                'group_id' => ['required', function ($attribute, $value, $fail) {
+                    if ($value == 0) {
+                        $fail('Vui lòng chọn nhóm');
+                    }
+                }]
+            ],
+            [
 
-       $user = new User();
-       $user->name = $request->name;
-       $user->email=$request->email;
-       $user->password=Hash::make($request->password);
-       $user->group_id = $request->group_id;
-       $user->user_id = Auth::user()->id;
-       $user->save();
-       return redirect()->route('admin.users.index')->with('msg','Thêm dữ liệu thành công...');
+                'name.required' => 'Tên không được để trống',
+                'email.required' => 'Tên không được để trống',
+                'email.email' => 'Email không đúng định dạng',
+                'email.unique' => 'Email đã có người sử dụng',
+                'group_id.required' => 'Nhóm không được để trống',
+                'passowrd.required' => 'Nhập password'
+            ]
+        );
+
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->group_id = $request->group_id;
+        $user->user_id = Auth::user()->id;
+        $user->save();
+        return redirect()->route('admin.users.index')->with('msg', 'Thêm dữ liệu thành công...');
     }
     public function edit(User $user)
     {
-        return view('admin.users.edit');
+
+        $groups = Groups::all();
+        return view('admin.users.edit', compact('groups', 'user'));
     }
-    public function postEdit(User $user)
+    public function postEdit(User $user, Request $request)
     {
-       
+        $request->validate(
+            [
+                'name' => 'required',
+                'email' => 'required|email|unique:users,email,' . $user->id,
+
+                'group_id' => ['required', function ($attribute, $value, $fail) {
+                    if ($value == 0) {
+                        $fail('Vui lòng chọn nhóm');
+                    }
+                }]
+            ],
+            [
+
+                'name.required' => 'Tên không được để trống',
+                'email.required' => 'Tên không được để trống',
+                'email.email' => 'Email không đúng định dạng',
+                'email.unique' => 'Email đã có người sử dụng',
+                'group_id.required' => 'Nhóm không được để trống',
+
+            ]
+        );
+        $user->name = $request->name;
+        $user->email = $request->email;
+        if (!empty($request->password)) {
+            $user->password = Hash::make($request->password);
+        }
+        $user->group_id = $request->group_id;
+
+        $user->save();
+        return back()->with('msg', 'Cập nhật người dùng thành công...');
     }
     public function delete(User $user)
     {
-        
     }
 }
