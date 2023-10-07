@@ -95,5 +95,11 @@ class UsersController extends Controller
     }
     public function delete(User $user)
     {
+        if (Auth::user()->id != $user->id) {
+            User::destroy($user->id);
+            return redirect()->route('admin.users.index')->with('msg','Xóa tài khoản thành công');
+        }else{
+            return redirect()->route('admin.users.index')->with('msg','Bạn không thể xóa tài khoản này');
+        }
     }
 }

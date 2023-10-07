@@ -45,6 +45,6 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
         Route::post('/add', [UsersController::class, 'postAdd']);
         Route::get('/edit/{user}', [UsersController::class, 'edit'])->name('edit')   ;
         Route::post('/edit/{user}', [UsersController::class, 'postEdit']);
-        Route::post('/delete/{user}', [UsersController::class, 'delete'])->name('delete')   ;
+        Route::get('/delete/{user}', [UsersController::class, 'delete'])->name('delete')   ;
     });
 });

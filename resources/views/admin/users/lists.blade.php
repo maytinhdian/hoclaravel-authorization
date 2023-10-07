@@ -9,10 +9,10 @@
         <h1 class="h3 mb-0 text-gray-800">Danh sách người dùng</h1>
     </div>
     @if (session('msg'))
-        <div class="alert alert-success">{{session('msg')}}</div>
+        <div class="alert alert-success">{{ session('msg') }}</div>
     @endif
     <p>
-        <a href="{{route('admin.users.add')}}" class="btn btn-primary">Thêm mới</a>
+        <a href="{{ route('admin.users.add') }}" class="btn btn-primary">Thêm mới</a>
     </p>
     <div class="table table-bordered">
         <table class="table table-bordered">
@@ -35,10 +35,13 @@
                             <td>{{ $item->email }}</td>
                             <td>{{ $item->group->name }}</td>
                             <td>
-                                <a href="{{route('admin.users.edit',$item)}}" class="btn btn-warning">Sửa</a>
+                                <a href="{{ route('admin.users.edit', $item) }}" class="btn btn-warning">Sửa</a>
                             </td>
                             <td>
-                                <a onclick="return confirm('Bạn có chắc chắn?')" href="{{route('admin.users.delete',$item)}}" class="btn btn-danger">Xóa</a>
+                                @if (Auth::user()->id !== $item->id)
+                                    <a onclick="return confirm('Bạn có chắc chắn?')"
+                                        href="{{ route('admin.users.delete', $item) }}" class="btn btn-danger">Xóa</a>
+                                @endif
                             </td>
                         </tr>
                     @endforeach
