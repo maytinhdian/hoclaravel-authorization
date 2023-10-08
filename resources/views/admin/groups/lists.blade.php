@@ -1,4 +1,4 @@
-@extends('layouts.admin');
+@extends('layouts.admin')
 
 @section('title', 'Danh sách nhóm')
 
@@ -36,7 +36,7 @@
                                 {{ !empty($item->postBy->name) ? $item->postBy->name : false }}
                             </td>
                             <td>
-                                <a href="#" class="btn btn-primary">Phân quyền</a>
+                                <a href="{{route('admin.groups.permission',$item)}}" class="btn btn-primary">Phân quyền</a>
                             </td>
                             <td>
                                 <a href="{{ route('admin.groups.edit', $item) }}" class="btn btn-warning">Sửa</a>

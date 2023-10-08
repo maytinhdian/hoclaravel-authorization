@@ -41,7 +41,11 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
         Route::get('/edit/{group}', [GroupsController::class, 'edit'])->name('edit')   ;
         Route::post('/edit/{group}', [GroupsController::class, 'postEdit']);
         Route::get('/delete/{group}', [GroupsController::class, 'delete'])->name('delete')   ;
+        Route::get('/permission/{group}', [GroupsController::class, 'permission'])->name('permission')   ;
+        Route::post('/permission/{group}', [GroupsController::class, 'postPermission']);
+   
     });
+
     //Users
     Route::prefix('users')->name('users.')->group(function () {
         Route::get('/', [UsersController::class, 'index']) ->name('index');
