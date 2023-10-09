@@ -2,8 +2,11 @@
 
 namespace App\Providers;
 
-// use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use App\Models\Modules;
+use App\Models\User;
+use App\Models\Groups;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -21,6 +24,24 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        /**
+         * users.view  
+         * 1. Lấy danh sách module
+         * 
+         */
+        $modulesList = Modules::all();
+        if ($modulesList->count() > 0) {
+            foreach ($modulesList as $module) {
+                Gate::define($module->name, function (User $user) use ($module){
+                    $roleJson = $user->group->permissions;
+                    if (!empty($roleJson)) {
+                        $roleArr = json_decode($roleJson, true);
+                        $check = isRole($roleArr,$module->name);
+                        return $check;
+                    } 
+                    return false;
+                });
+            }
+        }
     }
 }

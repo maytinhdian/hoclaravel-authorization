@@ -57,52 +57,56 @@
             </div>
 
             <!-- Nav Item - Posts Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse_posts"
-                    aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Bài viết</span>
-                </a>
-                <div id="collapse_posts" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Bài viết</h6>
-                        <a class="collapse-item" href="{{route('admin.posts.index')}}">Danh sách</a>
-                        <a class="collapse-item" href="{{route('admin.posts.add')}}">Thêm mới</a>
+            @can('posts')
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse_posts"
+                        aria-expanded="true" aria-controls="collapseTwo">
+                        <i class="fas fa-fw fa-cog"></i>
+                        <span>Bài viết</span>
+                    </a>
+                    <div id="collapse_posts" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Bài viết</h6>
+                            <a class="collapse-item" href="{{ route('admin.posts.index') }}">Danh sách</a>
+                            <a class="collapse-item" href="{{ route('admin.posts.add') }}">Thêm mới</a>
+                        </div>
                     </div>
-                </div>
-            </li>
-
-             <!-- Nav Item - Groups Collapse Menu -->
-             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse_groups"
-                    aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Nhóm người dùng</span>
-                </a>
-                <div id="collapse_groups" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Nhóm người dùng</h6>
-                        <a class="collapse-item" href="{{route('admin.groups.index')}}">Danh sách</a>
-                        <a class="collapse-item" href="{{route('admin.groups.add')}}">Thêm mới</a>
+                </li>
+            @endcan
+            <!-- Nav Item - Groups Collapse Menu -->
+           @can('groups')
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse_groups"
+                        aria-expanded="true" aria-controls="collapseTwo">
+                        <i class="fas fa-fw fa-cog"></i>
+                        <span>Nhóm người dùng</span>
+                    </a>
+                    <div id="collapse_groups" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Nhóm người dùng</h6>
+                            <a class="collapse-item" href="{{ route('admin.groups.index') }}">Danh sách</a>
+                            <a class="collapse-item" href="{{ route('admin.groups.add') }}">Thêm mới</a>
+                        </div>
                     </div>
-                </div>
-            </li>
-
-             <!-- Nav Item - Users Collapse Menu -->
-             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse_users"
-                    aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Người dùng</span>
-                </a>
-                <div id="collapse_users" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Người dùng</h6>
-                        <a class="collapse-item" href="{{route('admin.users.index')}}">Danh sách</a>
-                        <a class="collapse-item" href="{{route('admin.users.add')}}">Thêm mới</a>
+                </li>
+         @endcan
+            @can('users')
+                <!-- Nav Item - Users Collapse Menu -->
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse_users"
+                        aria-expanded="true" aria-controls="collapseTwo">
+                        <i class="fas fa-fw fa-cog"></i>
+                        <span>Người dùng</span>
+                    </a>
+                    <div id="collapse_users" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Người dùng</h6>
+                            <a class="collapse-item" href="{{ route('admin.users.index') }}">Danh sách</a>
+                            <a class="collapse-item" href="{{ route('admin.users.add') }}">Thêm mới</a>
+                        </div>
                     </div>
-                </div>
-            </li>
+                </li>
+            @endcan
 
             <!-- Divider -->
             <hr class="sidebar-divider">
@@ -373,10 +377,10 @@
                         onclick="event.preventDefault();
                                   document.getElementById('logout-form').submit();">Đăng
                         xuất</a>
-                    </div>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                        @csrf
-                    </form>
+                </div>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    @csrf
+                </form>
             </div>
         </div>
     </div>
