@@ -35,7 +35,7 @@
                                             <div class="col-2">
                                                 <label for="role_{{ $module->name }}_{{ $roleName }}">
                                                     <input type="checkbox" name="role[{{ $module->name }}][]"
-                                                        id="role[{{ $module->name }}][]" value="view">
+                                                        id="role[{{ $module->name }}][]" value="{{$roleName}}"{{isRole($roleArr,$module->name,$roleName)?'checked':false}}/>
                                                     {{ $roleLabel }}
                                                 </label>
                                             </div>
