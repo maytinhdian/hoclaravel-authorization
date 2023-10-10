@@ -11,9 +11,11 @@
     @if (session('msg'))
         <div class="alert alert-success">{{ session('msg') }}</div>
     @endif
-    <p>
-        <a href="{{ route('admin.posts.add') }}" class="btn btn-primary">Thêm mới</a>
-    </p>
+    @can('create', App\Models\Post::class)
+        <p>
+            <a href="{{ route('admin.posts.add') }}" class="btn btn-primary">Thêm mới</a>
+        </p>
+    @endcan
     <div class="table table-bordered">
         <table class="table table-bordered">
             <thead>
@@ -34,15 +36,15 @@
                             <td>
                                 {{ !empty($item->postBy->name) ? $item->postBy->name : false }}
                             </td>
-                           
+
                             <td>
                                 <a href="{{ route('admin.posts.edit', $item) }}" class="btn btn-warning">Sửa</a>
                             </td>
                             <td>
-                                
-                                    <a onclick="return confirm('Bạn có chắc chắn?')"
-                                        href="{{ route('admin.posts.delete', $item) }}" class="btn btn-danger">Xóa</a>
-                               
+
+                                <a onclick="return confirm('Bạn có chắc chắn?')"
+                                    href="{{ route('admin.posts.delete', $item) }}" class="btn btn-danger">Xóa</a>
+
                             </td>
                         </tr>
                     @endforeach

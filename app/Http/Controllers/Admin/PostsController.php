@@ -12,7 +12,10 @@ class PostsController extends Controller
 {
     public function index()
     {
-        $lists = Post::all();
+        $userId=Auth::user()->id;
+        $lists = Post::orderBy('created_at','desc')
+        ->where('user_id',$userId)
+        ->get();
         return view('admin.posts.lists', compact('lists'));
     }
     public function add()
@@ -39,6 +42,7 @@ class PostsController extends Controller
         return redirect()->route('admin.posts.index')->with('msg', 'Thêm bài viết thành công');
     }
     public function edit(Post $post) {
+        $this->authorize('update',$post);
         return view('admin.posts.edit',compact('post'));
     }
     public function postEdit(Post $post,Request $request) {

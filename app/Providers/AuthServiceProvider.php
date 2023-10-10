@@ -7,6 +7,8 @@ use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvid
 use App\Models\Modules;
 use App\Models\User;
 use App\Models\Groups;
+use App\Models\Post;
+use App\Policies\PostPolicy;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -16,7 +18,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array<class-string, class-string>
      */
     protected $policies = [
-        //
+        Post::class=>PostPolicy::class,
     ];
 
     /**
@@ -24,6 +26,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        $this->registerPolicies();
         /**
          * users.view  
          * 1. Lấy danh sách module
@@ -37,6 +40,15 @@ class AuthServiceProvider extends ServiceProvider
                     if (!empty($roleJson)) {
                         $roleArr = json_decode($roleJson, true);
                         $check = isRole($roleArr,$module->name);
+                        return $check;
+                    } 
+                    return false;
+                });
+                Gate::define($module->name.'.edit', function (User $user) use ($module){
+                    $roleJson = $user->group->permissions;
+                    if (!empty($roleJson)) {
+                        $roleArr = json_decode($roleJson, true);
+                        $check = isRole($roleArr,$module->name,'edit');
                         return $check;
                     } 
                     return false;
