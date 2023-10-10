@@ -23,8 +23,12 @@
                     <th width="5%">STT</th>
                     <th width="">Tiêu đề</th>
                     <th width="15%">Người đăng</th>
-                    <th width="5%">Sửa</th>
-                    <th width="5%">Xóa</th>
+                    @can('posts.edit')
+                        <th width="5%">Sửa</th>
+                    @endcan
+                    @can('posts.delete')
+                        <th width="5%">Xóa</th>
+                    @endcan
                 </tr>
             </thead>
             <tbody>
@@ -36,16 +40,19 @@
                             <td>
                                 {{ !empty($item->postBy->name) ? $item->postBy->name : false }}
                             </td>
-
-                            <td>
-                                <a href="{{ route('admin.posts.edit', $item) }}" class="btn btn-warning">Sửa</a>
-                            </td>
+                            @can('posts.edit')
+                                <td>
+                                    <a href="{{ route('admin.posts.edit', $item) }}" class="btn btn-warning">Sửa</a>
+                                </td>
+                            @endcan
+                            @can('posts.delete')
                             <td>
 
                                 <a onclick="return confirm('Bạn có chắc chắn?')"
                                     href="{{ route('admin.posts.delete', $item) }}" class="btn btn-danger">Xóa</a>
 
                             </td>
+                            @endcan
                         </tr>
                     @endforeach
                 @endif
