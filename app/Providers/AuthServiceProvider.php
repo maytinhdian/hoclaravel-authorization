@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\Groups;
 use App\Models\Post;
 use App\Policies\PostPolicy;
+use App\Policies\UserPolicy;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -19,6 +20,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         Post::class=>PostPolicy::class,
+        User::class=>UserPolicy::class,
     ];
 
     /**

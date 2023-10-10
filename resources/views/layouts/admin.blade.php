@@ -68,13 +68,15 @@
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Bài viết</h6>
                             <a class="collapse-item" href="{{ route('admin.posts.index') }}">Danh sách</a>
-                            <a class="collapse-item" href="{{ route('admin.posts.add') }}">Thêm mới</a>
+                            @can('create', App\Models\Post::class)
+                                <a class="collapse-item" href="{{ route('admin.posts.add') }}">Thêm mới</a>
+                            @endcan
                         </div>
                     </div>
                 </li>
             @endcan
             <!-- Nav Item - Groups Collapse Menu -->
-           @can('groups')
+            @can('groups')
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse_groups"
                         aria-expanded="true" aria-controls="collapseTwo">
@@ -89,7 +91,7 @@
                         </div>
                     </div>
                 </li>
-         @endcan
+            @endcan
             @can('users')
                 <!-- Nav Item - Users Collapse Menu -->
                 <li class="nav-item">
@@ -102,7 +104,9 @@
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Người dùng</h6>
                             <a class="collapse-item" href="{{ route('admin.users.index') }}">Danh sách</a>
-                            <a class="collapse-item" href="{{ route('admin.users.add') }}">Thêm mới</a>
+                            @can('create', App\Models\User::class)
+                                <a class="collapse-item" href="{{ route('admin.users.add') }}">Thêm mới</a>
+                            @endcan
                         </div>
                     </div>
                 </li>

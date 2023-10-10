@@ -13,7 +13,13 @@ class UsersController extends Controller
 {
     public function index()
     {
-        $lists = User::all();
+        $userId = Auth::user()->id;
+        if (Auth::user()->user_id==0) {
+            $lists=User::all();
+        }else{
+            $lists=User::where('user_id',$userId)->get();
+        }
+        
         return view('admin.users.lists', compact('lists'));
     }
     public function add()
@@ -56,12 +62,14 @@ class UsersController extends Controller
     }
     public function edit(User $user)
     {
-
+        $this->authorize('update', $user);
+        
         $groups = Groups::all();
         return view('admin.users.edit', compact('groups', 'user'));
     }
     public function postEdit(User $user, Request $request)
     {
+        $this->authorize('update', $user);
         $request->validate(
             [
                 'name' => 'required',
@@ -95,6 +103,7 @@ class UsersController extends Controller
     }
     public function delete(User $user)
     {
+        $this->authorize('delete', $user);
         if (Auth::user()->id != $user->id) {
             User::destroy($user->id);
             return redirect()->route('admin.users.index')->with('msg','Xóa tài khoản thành công');
